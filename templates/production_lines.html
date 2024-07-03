@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Lines</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Production Lines</h1>
+
+        <form action="/production_lines" method="post" class="form-insert">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+            <label for="capacity">Capacity:</label>
+            <input type="text" id="capacity" name="capacity" required>
+            <label for="manager_id">Manager ID:</label>
+            <input type="text" id="manager_id" name="manager_id" required>
+            <button type="submit">Insert Data</button>
+        </form>
+
+        <form action="/production_lines" method="get" class="form-show">
+            <input type="hidden" name="show_data" value="true">
+            <button type="submit">Show Data</button>
+        </form>
+
+        {% if show_data %}
+        <ul class="production-line-list">
+            {% for line in production_lines %}
+            <li>Location: {{ line.location }} - Capacity: {{ line.capacity }} - Manager ID: {{ line.manager_id }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Model</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+h1 i {
+    color: #5c6bc0;
+    margin-right: 10px;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 400;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
+
+button {
+    background: #5c6bc0;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    align-self: center;
+}
+
+button:hover {
+    background: #3f51b5;
+}
+
+table {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #3f51b5;
+    color: white;
+}
+
+td {
+    background: #fff;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #5c6bc0;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #3f51b5;
+}
+
+.back-link i {
+    margin-right: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-car-side"></i> Car Model</h1>
+        <form method="POST" action="{{ url_for('car_model') }}">
+            <label for="modelname">Model Name:</label>
+            <input type="text" id="modelname" name="modelname" required>
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" required>
+            <label for="manufacturer">Manufacturer:</label>
+            <input type="text" id="manufacturer" name="manufacturer" required>
+            <button type="submit"><i class="fas fa-plus"></i> Add Car Model</button>
+        </form>
+
+        <form action="{{ url_for('car_model') }}" method="get" class="form-show">
+            <input type="hidden" name="show_data" value="true">
+            <button type="submit"><i class="fas fa-eye"></i> Show Data</button>
+        </form>
+
+        {% if show_data %}
+            <h2><i class="fas fa-list"></i> Car Model List</h2>
+            <table>
+                <tr>
+                    <th>Model ID</th>
+                    <th>Model Name</th>
+                    <th>Year</th>
+                    <th>Manufacturer</th>
+                </tr>
+                {% for car_model in car_models %}
+                <tr>
+                    <td>{{ car_model['model_id'] }}</td>
+                    <td>{{ car_model['modelname'] }}</td>
+                    <td>{{ car_model['year'] }}</td>
+                    <td>{{ car_model['manufacturer'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</body>
+</html>

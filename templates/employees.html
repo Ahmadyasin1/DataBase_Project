@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employees</h1>
+
+        <form action="/employees" method="post" class="form-insert">
+            <label for="employeename">Employee Name:</label>
+            <input type="text" id="employeename" name="employeename" required>
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" required>
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" required>
+            <button type="submit">Insert Data</button>
+        </form>
+
+        <form action="/employees" method="get" class="form-show">
+            <input type="hidden" name="show_data" value="true">
+            <button type="submit">Show Data</button>
+        </form>
+
+        {% if show_data %}
+        <ul class="employee-list">
+            {% for employee in employees %}
+            <li>{{ employee.employeename }} - {{ employee.position }} - {{ employee.department }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>
